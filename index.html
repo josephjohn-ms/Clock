@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sevenfriday-style Clock</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+        
+        .watch {
+            background-color: #333;
+            border-radius: 50%;
+            width: 300px;
+            height: 300px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+        
+        .hour, .minute, .second {
+            position: absolute;
+            transform-origin: center bottom;
+        }
+        
+        .hour {
+            width: 6px;
+            height: 50px;
+            background-color: #fff;
+            top: 35%;
+            left: 50%;
+            transform: translateX(-50%) rotate(90deg);
+        }
+        
+        .minute {
+            width: 4px;
+            height: 60px;
+            background-color: #fff;
+            top: 30%;
+            left: 50%;
+            transform: translateX(-50%) rotate(180deg);
+        }
+        
+        .second {
+            width: 2px;
+            height: 65px;
+            background-color: #ff0000;
+            top: 25%;
+            left: 50%;
+            transform: translateX(-50%) rotate(270deg);
+            transition: transform 1s cubic-bezier(0.4, 2.1, 0.3, 1);
+        }
+    </style>
+</head>
+<body>
+    <div class="watch">
+        <div class="hour"></div>
+        <div class="minute"></div>
+        <div class="second"></div>
+    </div>
+
+    <script>
+        function updateClock() {
+            const now = new Date();
+            const hours = now.getHours();
+            const minutes = now.getMinutes();
+            const seconds = now.getSeconds();
+
+            const hourHand = document.querySelector('.hour');
+            const minuteHand = document.querySelector('.minute');
+            const secondHand = document.querySelector('.second');
+
+            const hourRotation = (hours % 12) * 30 + (minutes / 2);
+            const minuteRotation = minutes * 6;
+            const secondRotation = seconds * 6;
+
+            hourHand.style.transform = `translateX(-50%) rotate(${hourRotation}deg)`;
+            minuteHand.style.transform = `translateX(-50%) rotate(${minuteRotation}deg)`;
+            secondHand.style.transform = `translateX(-50%) rotate(${secondRotation}deg)`;
+        }
+
+        setInterval(updateClock, 1000);
+        updateClock();
+    </script>
+</body>
+</html>
